@@ -33,3 +33,18 @@ app.get('/kandangbinatang', async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 });
+
+app.put('/kandangbinatang/:id', async (req, res) => {
+  const id = req.params.id;
+  const data = req.body;
+  try {
+    const kandangbinatang = await db.kebun_binatang.findByPk(id);
+    if (!kandangbinatang) {
+      return res.status(404).send({ message: 'Kandang not found' });
+    }
+    await kandangbinatang.update(data);
+    res.send({ message: "Kandang berhasil diupdate", kandangbinatang });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+});
