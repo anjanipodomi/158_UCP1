@@ -48,3 +48,17 @@ app.put('/kandangbinatang/:id', async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 });
+
+app.delete('/kandangbinatang/:id', async (req, res) => {
+  const id = req.params.id;
+  try {
+    const kandangbinatang = await db.kebun_binatang.findByPk(id);
+    if (!kandangbinatang) {
+      return res.status(404).send({ message: 'Kandang not found' });
+    }
+    await kandangbinatang.destroy();
+    res.send({ message: "Kandang berhasil dihapus" });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+});
