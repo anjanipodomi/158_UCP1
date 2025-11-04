@@ -25,3 +25,11 @@ app.post('/kandangbinatang', async (req, res) => {
   }
 });
 
+app.get('/kandangbinatang', async (req, res) => {
+  try {
+    const kandangbinatang = await db.kebun_binatang.findAll();
+    res.send(kandangbinatang);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+});
