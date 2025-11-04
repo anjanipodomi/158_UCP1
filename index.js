@@ -14,3 +14,14 @@ db.sequelize.sync().then(() => {
 }).catch((err) => {
   console.log('Database connection failed:', err);
 });
+
+app.post('/kandangbinatang', async (req, res) => {
+  const data = req.body;
+  try {
+    const kandangbinatang = await db.kebun_binatang.create(data);
+    res.send(kandangbinatang);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+});
+
